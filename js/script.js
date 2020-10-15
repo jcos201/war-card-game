@@ -7,6 +7,7 @@ let deckData, deckID, cardArray, userPile, cpuPile, userCards, cpuCards, userNam
 const $input = $('input[type="text"]');
 const $form = $('form');
 const $dynBG = $('.dynamicBG');
+const $headr = $('#hd');
 
 // Event Listeners
 $form.on('submit', handleStartGame);
@@ -17,12 +18,12 @@ init();
 function handleStartGame(event){
     event.preventDefault();
     userName = $input.val();
+    
 
     if(!userName) { return;}
     
     $dynBG.css('background-color','green');
     $form.css('display','none');
-
 
     $.ajax(BASE_URL).then(function(data){
         deckData = data;
@@ -44,5 +45,6 @@ function handleStartGame(event){
 }
 
 function init() {
-    
+    $headr.fadeOut(0);
+    $headr.css('font-family', 'Frijole').fadeIn(5000);  
 };

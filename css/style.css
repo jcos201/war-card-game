@@ -1,8 +1,41 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: helvetica;
+}
 
+header {
+    font-size: 35px;
+}
 
+main {
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+header, footer {
+    height: 65px;
+    width: 100%;
+}
+
+.flex-ctr {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .dynamicBG {
     background-color: #000;
     color: #fff;
+    
+}
+
+#hd {
+    font-family: 'Libre Barcode 39', cursive; 
 }
