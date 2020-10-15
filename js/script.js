@@ -1,18 +1,28 @@
 // Constants and Variables
 BASE_URL = 'https://deckofcardsapi.com/api/deck/new/draw/?count=52';
 
-let deckData, deckID, cardArray, userPile, cpuPile, userCards, cpuCards;
+let deckData, deckID, cardArray, userPile, cpuPile, userCards, cpuCards, userName;
 
 // Cached Element References
-
+const $input = $('input[type="text"]');
+const $form = $('form');
+const $dynBG = $('.dynamicBG');
 
 // Event Listeners
-
+$form.on('submit', handleStartGame);
 
 // Functions
 init();
 
-function init(){
+function handleStartGame(event){
+    event.preventDefault();
+    userName = $input.val();
+
+    if(!userName) { return;}
+    
+    $dynBG.css('background-color','green');
+    $form.css('display','none');
+
 
     $.ajax(BASE_URL).then(function(data){
         deckData = data;
@@ -33,3 +43,6 @@ function init(){
     });
 }
 
+function init() {
+    
+};
