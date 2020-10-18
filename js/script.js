@@ -26,11 +26,14 @@ const $piles = $('.piles');
 const $buttons = $('button');
 const $btns = $('#btns');
 const $trn = $('#trn');
-
+const $restart = $('#restart');
+const $exit = $('#quit');
 
 // Event Listeners
 $form.on('submit', handleStartGame);
 $trn.on('click', takeTurn);
+$restart.on('click', restart);
+$exit.on('click', exit);
 
 
 // Functions
@@ -45,7 +48,7 @@ function init() {
 };
 
 function handleStartGame(event){
-    event.preventDefault();
+    if(event) { event.preventDefault() }
     userName = $input.val();
     $btns.fadeIn(0);
     $mstr.css({"grid-column": "span 1","grid-row": "span 1"});
@@ -121,4 +124,20 @@ function compareCards(){
         console.log("player 1 wins");
         p1Pile.push(cpuTurn, p1Turn);
     }
+}
+
+function restart(){
+    cpuPile = [];
+    cpuCards = [];
+    p1Pile = [];
+    p1Cards = [];
+    $main.html('');
+    p1Turn = '';
+    cpuTurn = '';
+
+    handleStartGame();
+}
+
+function exit(){
+    location.reload();
 }
