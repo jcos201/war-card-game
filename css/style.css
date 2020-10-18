@@ -3,63 +3,86 @@
     margin: 0;
 }
 
-@media only screen and (max-width: 767px){
+@media only screen and (max-width: 767px) {
     body {
         display: grid;
         grid-template-columns: 1fr 2fr 1fr;
         grid-template-rows: 40px 1fr 1fr 1fr 20px;
-        grid-template-areas: 
-        "hdr"
-        "aside1"
-        "cpu"
-        "blank1"
-        "blank2"
-        "tbl"
-        "blank3"
-        "blank4"
-        "player1"
-        "aside2"
-        "footer"
+        grid-template-areas:
+            "hdr"
+            "aside1"
+            "cpu"
+            "blank1"
+            "blank2"
+            "tbl"
+            "blank3"
+            "blank4"
+            "player1"
+            "aside2"
+            "footer"
         ;
         min-height: 100vh;
         margin: 0;
         font-family: helvetica;
-    }  
-    
-header {
-    grid-area: hdr;
-    font-size: 25px;
-}
-header, footer {
-    grid-column: span 3;
-    height: 25px;
-    width: 100%;
+    }
+
+    header {
+        grid-area: hdr;
+        font-size: 25px;
+    }
+
+    header,
+    footer {
+        grid-column: span 3;
+        height: 25px;
+        width: 100%;
+    }
+
+    .flex-right,
+    .flex-left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+    }
+
+    form {
+        grid-column: span 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .active {
+        margin: 10px;
+    }
+
+    main {
+        flex-grow: 1;
+        flex-direction: column;
+    }
+
+    #cpuCard {
+        border: dotted;
+        padding: 10px;
+        border-color: red;
+        height: 50%;
+    }
+
+    #p1Card {
+        border: dotted;
+        padding: 10px;
+        border-color: blue;
+        height: 50%;
+    }
+
 }
 
-.flex-right, .flex-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 10px;
-}
-form {
-    grid-column: span 2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.active {
-    margin: 10px;
-}
-
-}
+/* -----------
+   ABOVE HERE IS THE CSS FOR SMALL SCREENS
+   ----------- */
 
 
-main {
-    flex-grow: 1;
-    flex-direction: column;
-}
 
 
 
@@ -72,7 +95,7 @@ main {
 
 .dynamicBG {
     background-color: #000;
-    color: #fff;   
+    color: #fff;
 }
 
 .piles {
@@ -83,7 +106,7 @@ main {
 }
 
 #hd {
-    font-family: 'Frijole', cursive; 
+    font-family: 'Frijole', cursive;
 }
 
 #mstr {
@@ -94,77 +117,99 @@ main {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    margin-top: 0;
+    margin-top: 40px 0;
 }
 
-#innerArticle {
-    border: solid;
-    border-color: red;
+.cardIMG {
+    height: 110px;
 }
 
 /* --------------------
-   DESKTOP / LAPTOP MONITORS 
-   ------------------------ */
-@media only screen and (min-width: 768px){
-body {
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: 50px 1fr 1fr 1fr 20px;
-    grid-template-areas: 
-    "hdr"
-    "aside1"
-    "cpu"
-    "blank1"
-    "blank2"
-    "tbl"
-    "blank3"
-    "blank4"
-    "player1"
-    "aside2"
-    "footer"
-    ;
-    min-height: 100vh;
-    margin: 0;
-    font-family: helvetica;
-}
-    
-header {
-    grid-area: hdr;
-    font-size: 45px;
-}
-header, footer {
-    grid-column: span 3;
-    height: 65px;
-    width: 100%;
-}
+DESKTOP / LAPTOP MONITORS 
+------------------------ */
+@media only screen and (min-width: 768px) {
+    body {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: 50px 1fr 1fr 1fr 20px;
+        grid-template-areas:
+            "hdr"
+            "aside1"
+            "cpu"
+            "blank1"
+            "blank2"
+            "tbl"
+            "blank3"
+            "blank4"
+            "player1"
+            "aside2"
+            "footer"
+        ;
+        min-height: 100vh;
+        margin: 0;
+        font-family: helvetica;
+    }
 
-.flex-right {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px 40px 5px 40%;
-}
+    header {
+        grid-area: hdr;
+        font-size: 45px;
+    }
 
-.flex-left {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 5px 40% 5px 40px;
-}
+    header,
+    footer {
+        grid-column: span 3;
+        height: 65px;
+        width: 100%;
+    }
 
-form {
-    grid-column: span 3;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.active {
-    margin: 5px 20px;
-}
+    .flex-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px 40px 5px 40%;
+    }
 
-.p1PileClass {
-    margin: 5px 40px 5px 40%;
-}
+    .flex-left {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px 40% 5px 40px;
+    }
 
+    form {
+        grid-column: span 3;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .active {
+        margin: 5px 20px;
+    }
+
+    .p1PileClass {
+        margin: 5px 40px 5px 40%;
+    }
+
+    main {
+        flex-grow: 1;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: stretch;
+    }
+
+    #cpuCard {
+        border: dotted;
+        padding: 10px;
+        border-color: red;
+
+    }
+
+    #p1Card {
+        border: dotted;
+        padding: 10px;
+        border-color: blue;
+
+    }
 
 }
