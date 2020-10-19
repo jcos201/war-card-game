@@ -1,6 +1,6 @@
 // Constants and Variables
 const BASE_URL = 'https://deckofcardsapi.com/api/deck/new/draw/?count=52';
-const valueArray = ["2","3","4","5","6","7","8","9","10","JACK","QUEEN","KING","ACE"];
+const valueArray = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "JACK", "QUEEN", "KING", "ACE"];
 
 let deckData, deckID, userName, cpuTurn, p1Turn;
 cardArray = [];
@@ -8,7 +8,7 @@ p1Pile = [];
 cpuPile = [];
 p1Cards = [];
 cpuCards = [];
-
+warChest = [];
 
 // Cached Element References
 const $input = $('input[type="text"]');
@@ -40,47 +40,64 @@ $exit.on('click', exit);
 init();
 
 function init() {
-    $mstr.css({"grid-column": "span 3","grid-row": "span 3"});
+    $mstr.css({
+        "grid-column": "span 3",
+        "grid-row": "span 3"
+    });
     $mstr.prepend('<img src="./img/jigsaw-first-look.jpg" alt="jigsaw">');
-    $headr.fadeOut(0).fadeIn(5000);  
+    $headr.fadeOut(0).fadeIn(5000);
     $form.fadeOut(0).fadeIn(5000);
     $btns.fadeOut(0)
 };
 
-function handleStartGame(event){
-    if(event) { event.preventDefault() }
+function handleStartGame(event) {
+    if (event) {
+        event.preventDefault()
+    }
     userName = $input.val();
     $btns.fadeIn(0);
-    $mstr.css({"grid-column": "span 1","grid-row": "span 1"});
+    $mstr.css({
+        "grid-column": "span 1",
+        "grid-row": "span 1"
+    });
     $mstr.text('');
     $actvClass.css("border", "solid");
-    $main.css({"border-radius": "25px"});
-    $piles.css({"border-radius": "50%"});
-    
-    $p1Hand.html(`
+    $main.css({
+        "border-radius": "25px"
+    });
+    $piles.css({
+        "border-radius": "50%"
+    });
+
+    /*$p1Hand.html(`
     <article id="innerArticle">test</article>
     <article id="innerArticle">test</article>
-    <article id="innerArticle">test</article>`);
+    <article id="innerArticle">test</article>`);*/
     $p1Pile.addClass('p1Pile');
-    if(!userName) { return;}
-    
-    $dynBG.css('background-color','green');
-    $form.css('display','none');
+    if (!userName) {
+        return;
+    }
+
+    $dynBG.css('background-color', 'green');
+    $form.css('display', 'none');
 
 
-    $.ajax(BASE_URL).then(function(data){
+    $.ajax(BASE_URL).then(function (data) {
         deckData = data;
         deckID = deckData.deck_id;
         cardArray = deckData.cards;
         var i = 0;
         do {
-            if(i % 2 === 0){ p1Cards.push(cardArray[i]); }
-           else { cpuCards.push(cardArray[i]); }
+            if (i % 2 === 0) {
+                p1Cards.push(cardArray[i]);
+            } else {
+                cpuCards.push(cardArray[i]);
+            }
             //console.log(typeof userCards);
-          i += 1;
+            i += 1;
         } while (i < cardArray.length)
 
-    }, function(error) {
+    }, function (error) {
         console.log('Error: ', error);
     });
 
@@ -88,7 +105,7 @@ function handleStartGame(event){
 
 }
 
-function updateCards(){
+function updateCards() {
     $cpuHand.html(`${cpuCards.length}`);
     $p1Hand.html(`${p1Cards.length}`);
     $cpuPile.html(`${cpuPile.length}  <br/> Cards Won`);
@@ -96,28 +113,44 @@ function updateCards(){
 
 }
 
-function takeTurn(){
+function takeTurn() {
     console.log('Take turn button was selected');
-   // cpuTurn = 
-   updateCards();
-    p1Turn = p1Cards.pop();
-    cpuTurn = cpuCards.pop();
+    // cpuTurn = 
+    if(cpuCards.length === 0) {
+        cpuCards = cpuPile;
+        cpuPile = [];
+    }
+    if(p1Cards.length === 0) {
+        p1Cards = p1Pile;
+        p1Pile = [];
+    }
+
+    updateCards();
+    getCards();
 
     $main.html(`
     <article id="p1Card"><img class="cardIMG" src=${p1Turn.images.png} alt="Player 1 Card"></article>
     <article id="cpuCard"><img class="cardIMG" src=${cpuTurn.images.png} alt="CPU Card"></article>`);
-    $main.css({'justify-content': 'space-around'});
+    $main.css({
+        'justify-content': 'space-around'
+    });
 
     compareCards();
 }
 
-function compareCards(){
+function getCards() {
+    p1Turn = p1Cards.pop();
+    cpuTurn = cpuCards.pop();
+};
+
+function compareCards() {
     let p1 = parseInt(valueArray.indexOf(p1Turn.value));
-    let cpu = parseInt(valueArray.indexOf(cpuTurn.value)); 
+    let cpu = parseInt(valueArray.indexOf(cpuTurn.value));
     console.log(`player one ${valueArray.indexOf(p1Turn.value)}`);
-    if( p1 === cpu ){
+    if (p1 === cpu) {
         console.log("it's a tie");
-    } else if(p1  < cpu) {
+        declareWar();
+    } else if (p1 < cpu) {
         cpuPile.push(cpuTurn, p1Turn);
         console.log("cpu wins");
     } else {
@@ -126,7 +159,14 @@ function compareCards(){
     }
 }
 
-function restart(){
+function declareWar() {
+    console.log(`p1 deck: ${p1Cards[0].code}`);
+    console.log(`cpu deck: ${cpuCards[0].code}`);
+    warChest.push(cpuTurn, p1Turn, p1Cards.pop(), cpuCards.pop());
+    getCards()
+}
+
+function restart() {
     cpuPile = [];
     cpuCards = [];
     p1Pile = [];
@@ -138,6 +178,6 @@ function restart(){
     handleStartGame();
 }
 
-function exit(){
+function exit() {
     location.reload();
 }
