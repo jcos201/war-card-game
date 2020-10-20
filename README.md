@@ -1,15 +1,15 @@
 ![Site Logo](./img/logo.jpeg)
 
 ## Rules
+![Rules](./img/rules.jpeg)
+[BicycleCards](https://bicyclecards.com/how-to-play/war/)
 
 ## Wireframe
 
 ## Screenshots
 
 ## Technologies Used
-HTML
-CSS
-JavaScript - JQuery
+HTML, CSS, JavaScript - JQuery :sweat_smile:
 
 
 
