@@ -102,7 +102,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50%;
 }
 
 #hd {
@@ -130,7 +129,7 @@ DESKTOP / LAPTOP MONITORS
 @media only screen and (min-width: 768px) {
     body {
         display: grid;
-        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: 50px 1fr 1fr 1fr 20px;
         grid-template-areas:
             "hdr"
@@ -156,8 +155,19 @@ DESKTOP / LAPTOP MONITORS
     }
 
     header,
+    form {
+        grid-column: span 5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input {
+        height: 40px;
+    }
+
     footer {
-        grid-column: span 3;
+        grid-column: span 5;
         height: 65px;
         width: 100%;
     }
@@ -176,19 +186,28 @@ DESKTOP / LAPTOP MONITORS
         margin: 5px 40% 5px 40px;
     }
 
-    form {
-        grid-column: span 3;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
     .active {
         margin: 5px 20px;
     }
 
-    .p1PileClass {
-        margin: 5px 40px 5px 40%;
+    .p1Pile {
+        border: solid;
+        margin: 40px 30px;
+        border-radius: 50px 15px 50px 30px;
+        border-color: blue;
+    }
+
+    .cpuPile {
+        border: solid;
+        margin: 40px 30px;
+        border-radius: 50px 30px 50px 15px;
+        border-color: red;
+    }
+
+    .avatar {
+        display: flex;
+        flex-direction: column;
     }
 
     main {
@@ -196,6 +215,11 @@ DESKTOP / LAPTOP MONITORS
         flex-direction: row;
         justify-content: space-between;
         align-items: stretch;
+        grid-column: span 3;
+    }
+
+    #cpuHand, #p1Hand{
+        grid-column: span 2;
     }
 
     #cpuCard {

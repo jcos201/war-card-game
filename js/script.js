@@ -22,12 +22,12 @@ const $main = $('#main');
 const $p1Pile = $('#p1Pile');
 const $p1Hand = $('#p1Hand');
 const $actvClass = $('.active');
-const $piles = $('.piles');
 const $buttons = $('button');
 const $btns = $('#btns');
 const $trn = $('#trn');
 const $restart = $('#restart');
 const $exit = $('#quit');
+const $avatarImg = $('.avatar')
 
 // Event Listeners
 $form.on('submit', handleStartGame);
@@ -41,7 +41,7 @@ init();
 
 function init() {
     $mstr.css({
-        "grid-column": "span 3",
+        "grid-column": "span 5",
         "grid-row": "span 3"
     });
     $mstr.prepend('<img src="./img/jigsaw-first-look.jpg" alt="jigsaw">');
@@ -55,6 +55,11 @@ function handleStartGame(event) {
         event.preventDefault()
     }
     userName = $input.val();
+    if (!userName) {
+        return;
+    }
+    $p1Pile.html(`<img src="./img/p1_avatar.png" alt="player1 avatar" height="65px" class="avatar">  ${userName}`);
+    $cpuPile.html(`<img src="./img/JIGSAW.png" alt="Jigsaw Avatar" height="65px" class="avatar"> JIGSAW`);
     $btns.fadeIn(0);
     $mstr.css({
         "grid-column": "span 1",
@@ -63,21 +68,18 @@ function handleStartGame(event) {
     $mstr.text('');
     $actvClass.css("border", "solid");
     $main.css({
-        "border-radius": "25px"
+        "border-radius": "25px",
+        "margin": "10px 80px"
     });
-    $piles.css({
-        "border-radius": "50%"
-    });
+
+
 
     /*$p1Hand.html(`
     <article id="innerArticle">test</article>
     <article id="innerArticle">test</article>
     <article id="innerArticle">test</article>`);*/
     $p1Pile.addClass('p1Pile');
-    if (!userName) {
-        return;
-    }
-
+    $cpuPile.addClass('cpuPile');
     $dynBG.css('background-color', 'green');
     $form.css('display', 'none');
 
@@ -108,19 +110,18 @@ function handleStartGame(event) {
 function updateCards() {
     $cpuHand.html(`${cpuCards.length}`);
     $p1Hand.html(`${p1Cards.length}`);
-    $cpuPile.html(`${cpuPile.length}  <br/> Cards Won`);
-    $p1Pile.html(`${p1Pile.length} <br/> Cards Won`);
+
 
 }
 
 function takeTurn() {
     console.log('Take turn button was selected');
     // cpuTurn = 
-    if(cpuCards.length === 0) {
+    if (cpuCards.length === 0) {
         cpuCards = cpuPile;
         cpuPile = [];
     }
-    if(p1Cards.length === 0) {
+    if (p1Cards.length === 0) {
         p1Cards = p1Pile;
         p1Pile = [];
     }
@@ -164,6 +165,10 @@ function declareWar() {
     console.log(`cpu deck: ${cpuCards[0].code}`);
     warChest.push(cpuTurn, p1Turn, p1Cards.pop(), cpuCards.pop());
     getCards()
+}
+
+function checkWinner() {
+    //TODO write function checking winner and alerting user if they won/lost
 }
 
 function restart() {
