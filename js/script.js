@@ -73,10 +73,11 @@ function init() {
         "grid-row": "span 3"
     });
     $mstr.append(`
-    <video width="900" height="700" autoplay loop>
+    <video id="introVid" width="900" height="700" loop>
     <source src="./img/intro.mp4" type="video/mp4">
     Your browser does not support the video tag.
-    </video>`)
+    </video>`);
+    $('#introVid').trigger('play');
     $headr.fadeOut(0).delay(7700).fadeIn(7000);
     $form.fadeOut(0).delay(7700).fadeIn(7000);
     $btns.fadeOut(0);
