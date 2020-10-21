@@ -86,10 +86,26 @@
    ABOVE HERE IS THE CSS FOR SMALL SCREENS
    ----------- */
 
+.modal a {
+    color: red;
+    font-weight: 700;
+    font-size: 30px;
+    transition-duration: .2s;
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+}
+
 input[type=text] {
     color: white;
     font-size: 30px;
     font-weight: bold;
+}
+
+.modal p {
+    justify-content: center;
+    align-items: center;
+    color: grey;
+    font-size: 30px;
 }
 
 .card {
@@ -97,11 +113,39 @@ input[type=text] {
     border-color: #808080 #000000 #000000 #808080;
     border-width: 1px;
     border-style: solid;
+    border-radius: 50px;
     color: #000000;
     font-size: 20pt;
     position: absolute;
     width: 3.75em;
-    height: 5.00em;
+    height: 140px;
+    margin: 0 5px;
+}
+
+.cardSmall {
+    background-image: url("http://www.brainjar.com/css/cards/graphics/cardback.gif");
+    border-color: white;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 1px;
+    color: #000000;
+    font-size: 20pt;
+    position: relative;
+    width: .90em;
+    height: 90px;
+}
+
+.cardSmall1st {
+    background-image: url("http://www.brainjar.com/css/cards/graphics/cardback.gif");
+    border-color:white;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 1px;
+    color: #000000;
+    font-size: 20pt;
+    position: relative;
+    width: 2.45em;
+    height: 90px;
 }
 
 .front {
@@ -239,6 +283,13 @@ DESKTOP / LAPTOP MONITORS
         flex-direction: column;
     }
 
+    .warCards {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
     .btn {
         width: 140px;
     }
@@ -268,6 +319,11 @@ DESKTOP / LAPTOP MONITORS
         padding: 10px;
         border-color: blue;
 
+    }
+
+
+    #cpuWarCard {
+        max-height: 200px;
     }
 
 }
