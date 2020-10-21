@@ -8,32 +8,34 @@ War is a card game I used to play as a kid.  When given the task of creating my 
 ## Rules
 ![Rules](./img/rules.jpeg)
 [Bicycle Cards How To Play War](https://bicyclecards.com/how-to-play/war/)
-/
+\
 
 ## Wireframe
 ![Wireframe]()
 ###This was my original wireframe, as you can see from the screenshots below there has been some formatting changes since the original concept.  During testing it seemed that a better user experience could be attained by changing the layout slightly.
-/
+\
 
 ## Screenshots
-![Start of Game](./img/start_screenshot.jpeg)
 ### This is the gameboard at the start of the game
-/
-![War Screenshot](./img/war_screenshot.jpeg)
+![Start of Game](./img/start_screenshot.jpeg)
+\
+
 ### This is a screenshot of a tie with modal showing
+![War Screenshot](./img/war_screenshot.jpeg)
+\
 
 ## Technologies Used
 HTML, CSS, JavaScript - JQuery, Google Fonts, Materialize, CSS Arcade Typography, JQuery Modal :sweat_smile:
-/
+\
 
 ## Getting Started
 Click [here](https://war-the-card-game.netlify.app/) to play the game.
- /
+ \
 
 ## Future Enhancements
 - [] Allow user to select avatar
 - [] Allow user to select from different theme/backgrounds
-/
+\
 
 ## Credits
 #### Resources used to make this app
