@@ -122,7 +122,7 @@ input[type=text] {
 }
 
 .card {
-    background-image: url("http://www.brainjar.com/css/cards/graphics/cardback.gif");
+    background-image: url("../img/cardback.gif");
     border-color: #808080 #000000 #000000 #808080;
     border-width: 1px;
     border-style: solid;
