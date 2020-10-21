@@ -25,7 +25,15 @@ War is a card game I used to play as a kid.  When given the task of creating my 
  
 
 ## Technologies Used
-HTML, CSS, JavaScript - JQuery, Google Fonts, Materialize, CSS Arcade Typography, JQuery Modal :sweat_smile: 
+*HTML5
+*CSS3
+*JavaScript
+*JQueryv3.5
+*Google Fonts
+*Materialize
+*CSS Arcade Typography
+*JQuery Modal  
+:sweat_smile: 
  
 
 ## Getting Started
