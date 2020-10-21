@@ -28,8 +28,8 @@
 <body class="dynamicBG">
     <header class="flex-ctr" id="hd">War (the card game)</header>
     <article class="flex-ctr" id="mstr"></article>
-    <article class="cpuWar" id="cpuWar"></article>
-    <article class="flex-ctr active" id="cpuHand"></article>
+    <article class="warCards" id="cpuWar"></article>
+    <article class="flex-ctr" id="cpuHand"></article>
     <article class="flex-left piles " id="cpu">
     </article>
     <article class="flex-ctr"></article>
@@ -38,8 +38,8 @@
     </main>
     <article class="flex-ctr"></article>
     <article class="flex-right piles" id="p1"></article>
-    <article class="flex-ctr active" id="p1Hand"></article>
-    <article class="p1War" id="p1War"></article>
+    <article class="flex-ctr" id="p1Hand"></article>
+    <article class="warCards" id="p1War"></article>
     <article class="flex-left" id="btns">
         <button class="waves-effect waves-light btn" id='trn'>Next turn</button>
         <button class="waves-effect waves-light btn" id='restart'>Reshuffle</button>
@@ -57,13 +57,20 @@
             <li class="a"></li>
             <li class="r"></li>
         </ol>
-        It's a tie, <a href="#" rel="modal:close">declare War</a>!
+        <p>It's a tie, <a href="#" rel="modal:close">Declare War</a>!</p>
     </div>
     <div id="cpuWin" class="modal">
         <h3>JIGSAW Wins!!!</h3>>
     </div>
-    <div id="p1Win" class="modal">
-        <h3>You Win!!!</h3>>
+    <div id="reshuffleModal" class="modal">
+        <p>Are you sure you want to reshuffle the deck?</p>
+        <button id="confirmShuffle">Yes</button>
+        <button class="exit">No</button>
+    </div>
+    <div id="quitModal" class="modal">
+        <p>Are you sure you want to quit?</p>
+        <button id="confirmQuit">Yes</button>
+        <button class="exit">No</button>
     </div>
 </body>
 
