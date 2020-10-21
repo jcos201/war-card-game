@@ -114,7 +114,7 @@ function handleStartGame(event) {
 
             i += 1;
         } while (i < cardArray.length)
-        
+         //added comment
         updateCards();
     }, function (error) {
         console.log('Error: ', error);

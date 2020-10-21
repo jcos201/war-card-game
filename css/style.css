@@ -123,7 +123,7 @@ input[type=text] {
 }
 
 .cardSmall {
-    background-image: url("http://www.brainjar.com/css/cards/graphics/cardback.gif");
+    background-image: url("../img/cardback.gif");
     border-color: white;
     border-width: 1px;
     border-style: solid;
@@ -136,7 +136,7 @@ input[type=text] {
 }
 
 .cardSmall1st {
-    background-image: url("http://www.brainjar.com/css/cards/graphics/cardback.gif");
+    background-image: url("../img/cardback.gif");
     border-color:white;
     border-width: 1px;
     border-style: solid;
