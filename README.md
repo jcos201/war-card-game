@@ -43,4 +43,4 @@ CSS ARCADE TYPOGRAPHY: SNOW BROS. (1990)\
 Pixelated typeface from the arcade game Snow Bros. Drawn in CSS. 
  
  
-Playing Card background ![Playing Card Backgrounds](http://www.brainjar.com/css/cards/)
+Playing Card background [Playing Card Backgrounds](http://www.brainjar.com/css/cards/)
