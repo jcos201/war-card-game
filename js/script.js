@@ -16,20 +16,24 @@ const $form = $('form');
 const $dynBG = $('.dynamicBG');
 const $headr = $('#hd');
 const $mstr = $('#mstr');
-const $cpuHand = $('#cpuHand');
-const $cpu = $('#cpu');
 const $main = $('#main');
-const $p1 = $('#p1');
-const $p1Hand = $('#p1Hand');
 const $actvClass = $('.active');
 const $buttons = $('button');
 const $btns = $('#btns');
-const $cardSmall = $('.cardSmall');
 const $avatarImg = $('.avatar');
+const $p1 = $('#p1');
+const $p1Hand = $('#p1Hand');
 const $p1War = $('#p1War');
-const $cpuWar = $('#cpuWar');
 const $p1Win = $('#p1Win');
+
+const $cpu = $('#cpu');
+const $cpuHand = $('#cpuHand');
+const $cpuWar = $('#cpuWar');
 const $cpuWin = $('#cpuWin');
+
+// Playing Card elements
+const $cardSmall = $('.cardSmall');
+
 
 // Button variables
 const $trn = $('#trn');
@@ -43,6 +47,8 @@ const $noAction = $('.exit');
 const $warModal = $('#warModal');
 const $shuffleModal = $('#reshuffleModal');
 const $quitModal = $('#quitModal');
+const $a = $('a');
+const $modals = $('.modal');
 
 // Event Listeners
 $form.on('submit', handleStartGame);
@@ -52,6 +58,11 @@ $quit.on('click', quitModal);
 $confirmShuffle.on('click', restart);
 $confirmExit.on('click', exit);
 $noAction.on('click', closeModal);
+$a.on('click', declareWar);
+
+// Disable default modal close
+
+
 
 // Functions
 init();
@@ -61,9 +72,8 @@ function init() {
         "grid-column": "span 5",
         "grid-row": "span 3"
     });
-    //$mstr.prepend('<img src="./img/jigsaw-first-look.jpg" alt="jigsaw">');
     $mstr.append(`
-    <video width="700" height="300" autoplay>
+    <video width="900" height="700" autoplay loop>
     <source src="./img/intro.mp4" type="video/mp4">
     Your browser does not support the video tag.
     </video>`)
@@ -97,7 +107,7 @@ function handleStartGame(event) {
 
     $p1.addClass('p1');
     $cpu.addClass('cpu');
-    $dynBG.css('background-color', 'green');
+    $dynBG.css('background-color', '#2D5F5D');
     $form.css('display', 'none');
 
     $.ajax(BASE_URL).then(function (data) {
@@ -114,7 +124,7 @@ function handleStartGame(event) {
 
             i += 1;
         } while (i < cardArray.length)
-         //added comment
+        //added comment
         updateCards();
     }, function (error) {
         console.log('Error: ', error);
@@ -125,20 +135,26 @@ function handleStartGame(event) {
 }
 
 function updateCards() {
-    
+
     $cpuHand.html(`${cardsDealt(cpuCards)}`);
     $p1Hand.html(`${cardsDealt(p1Cards)}`);
 
 }
 
-function cardsDealt(cardArray){
+function cardsDealt(cardArray) {
     let cards = cardArray
     let allCardsDealt = '';
     let positionLeft = 0;
-    for(let x=0;x<cards.length;x++){
-        if(x === 0) {   allCardsDealt += '<div class="cardSmall1st"><div class="front" style="visibility:hidden;"></div></div>';  }
-        else {  allCardsDealt += '<div class="cardSmall"><div class="front" style="visibility:hidden;"></div></div>';  }
-        $cardSmall.css({"left":` ${positionLeft}px`,"z-index": `${cards.length - x}`});
+    for (let x = 0; x < cards.length; x++) {
+        if (x === 0) {
+            allCardsDealt += '<div class="cardSmall1st"><div class="front" style="visibility:hidden;"></div></div>';
+        } else {
+            allCardsDealt += '<div class="cardSmall"><div class="front" style="visibility:hidden;"></div></div>';
+        }
+        $cardSmall.css({
+            "left": ` ${positionLeft}px`,
+            "z-index": `${cards.length - x}`
+        });
         positionLeft += 5;
     };
 
@@ -178,7 +194,15 @@ function compareCards() {
     let p1 = parseInt(valueArray.indexOf(p1Turn.value));
     let cpu = parseInt(valueArray.indexOf(cpuTurn.value));
     if (p1 === cpu) {
-        declareWar();
+
+
+        $warModal.modal({
+            fadeDuration: 1000,
+            fadeDelay: 0.50,
+            escapeClose: false,
+            clickClose: false,
+            showClose: false
+        });
     } else if (p1 < cpu) {
         cpuCards.unshift(cpuTurn, p1Turn);
         if (warChest.length > 0) {
@@ -197,10 +221,6 @@ function compareCards() {
 }
 
 function declareWar() {
-    $warModal.modal({
-        fadeDuration: 1000,
-        fadeDelay: 0.50
-      });
     warChest.push(cpuTurn, p1Turn, p1Cards.pop(), cpuCards.pop());
     getCards();
     $cpuWar.html(`
