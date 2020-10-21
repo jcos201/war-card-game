@@ -24,22 +24,34 @@ const $p1Hand = $('#p1Hand');
 const $actvClass = $('.active');
 const $buttons = $('button');
 const $btns = $('#btns');
-const $trn = $('#trn');
-const $restart = $('#restart');
-const $exit = $('#quit');
+const $cardSmall = $('.cardSmall');
 const $avatarImg = $('.avatar');
-const $p1War = $('.p1War');
-const $cpuWar = $('.cpuWar');
-const $warModal = $('#warModal');
+const $p1War = $('#p1War');
+const $cpuWar = $('#cpuWar');
 const $p1Win = $('#p1Win');
 const $cpuWin = $('#cpuWin');
+
+// Button variables
+const $trn = $('#trn');
+const $restart = $('#restart');
+const $quit = $('#quit');
+const $confirmShuffle = $('#confirmShuffle');
+const $confirmExit = $('#confirmQuit');
+const $noAction = $('.exit');
+
+// Modal variables
+const $warModal = $('#warModal');
+const $shuffleModal = $('#reshuffleModal');
+const $quitModal = $('#quitModal');
 
 // Event Listeners
 $form.on('submit', handleStartGame);
 $trn.on('click', takeTurn);
-$restart.on('click', restart);
-$exit.on('click', exit);
-
+$restart.on('click', shuffleModal);
+$quit.on('click', quitModal);
+$confirmShuffle.on('click', restart);
+$confirmExit.on('click', exit);
+$noAction.on('click', closeModal);
 
 // Functions
 init();
@@ -88,7 +100,6 @@ function handleStartGame(event) {
     $dynBG.css('background-color', 'green');
     $form.css('display', 'none');
 
-
     $.ajax(BASE_URL).then(function (data) {
         deckData = data;
         deckID = deckData.deck_id;
@@ -103,23 +114,41 @@ function handleStartGame(event) {
 
             i += 1;
         } while (i < cardArray.length)
-
+        
+        updateCards();
     }, function (error) {
         console.log('Error: ', error);
     });
 
-    updateCards();
+
 
 }
 
 function updateCards() {
-    $cpuHand.html(`${cpuCards.length}`);
-    $p1Hand.html(`${p1Cards.length}`);
-
+    
+    $cpuHand.html(`${cardsDealt(cpuCards)}`);
+    $p1Hand.html(`${cardsDealt(p1Cards)}`);
 
 }
 
+function cardsDealt(cardArray){
+    let cards = cardArray
+    let allCardsDealt = '';
+    let positionLeft = 0;
+    for(let x=0;x<cards.length;x++){
+        if(x === 0) {   allCardsDealt += '<div class="cardSmall1st"><div class="front" style="visibility:hidden;"></div></div>';  }
+        else {  allCardsDealt += '<div class="cardSmall"><div class="front" style="visibility:hidden;"></div></div>';  }
+        $cardSmall.css({"left":` ${positionLeft}px`,"z-index": `${cards.length - x}`});
+        positionLeft += 5;
+    };
+
+    return allCardsDealt;
+}
+
 function takeTurn() {
+
+    $p1War.html('');
+    $cpuWar.html('');
 
     if (!checkWinner()) {
 
@@ -151,37 +180,57 @@ function compareCards() {
     if (p1 === cpu) {
         declareWar();
     } else if (p1 < cpu) {
-        console.log(`CPU Wins Cards: ${cpuTurn.code} and ${p1Turn.code}`);
         cpuCards.unshift(cpuTurn, p1Turn);
+        if (warChest.length > 0) {
+            while (warChest.length > 0) {
+                cpuCards.unshift(warChest.pop())
+            }
+        };
     } else {
-        console.log(`Player 1 Wins Cards: ${cpuTurn.code} and ${p1Turn.code}`);
         p1Cards.unshift(cpuTurn, p1Turn);
+        if (warChest.length > 0) {
+            while (warChest.length > 0) {
+                p1Cards.unshift(warChest.pop())
+            }
+        };
     }
 }
 
 function declareWar() {
-    $warModal.modal();
+    $warModal.modal({
+        fadeDuration: 1000,
+        fadeDelay: 0.50
+      });
     warChest.push(cpuTurn, p1Turn, p1Cards.pop(), cpuCards.pop());
     getCards();
     $cpuWar.html(`
-    <div id="cpuWarCard"><img class="cardIMG" src=${cpuTurn.images.png} alt="CPU War Card"></div>
-    <div class="card"><div class="front" style="visibility:hidden;"></div></div>`);
-    
-    $p1War.htnl(`
-    <div id="p1WarCard"><img class="cardIMG" src=${p1Turn.images.png} alt="P1 War Card"></div></div>
-    <div class="card"><div class="front" style="visibility:hidden;"></div></div>`);
+    <div class="card"><div class="front" style="visibility:hidden;"></div></div>
+    <div id="cpuWarCard"><img class="cardIMG" src=${cpuTurn.images.png} alt="CPU War Card"></div>`);
+
+    $p1War.html(`
+    <div class="card"><div class="front" style="visibility:hidden;"></div></div>
+    <div id="p1WarCard"><img class="cardIMG" src=${p1Turn.images.png} alt="P1 War Card"></div></div>`);
+
+    compareCards();
 
 }
 
 function checkWinner() {
     if (cpuCards.length === 0) {
-        console.log(`${userName} wins`);
+        $cpuWin.modal();
         return true;
     } else if (p1Cards.length === 0) {
-        console.log('JIGSAW Wins');
+        $p1Win.modal();
         return true;
     }
-    //TODO write function checking winner and alerting user if they won/lost
+}
+
+function shuffleModal() {
+    $shuffleModal.modal();
+}
+
+function quitModal() {
+    $quitModal.modal();
 }
 
 function restart() {
@@ -192,10 +241,17 @@ function restart() {
     $main.html('');
     p1Turn = '';
     cpuTurn = '';
-
+    $cpuWar.html('');
+    $p1War.html('');
+    closeModal();
     handleStartGame();
 }
 
 function exit() {
+    closeModal();
     location.reload();
+}
+
+function closeModal() {
+    $.modal.close();
 }
