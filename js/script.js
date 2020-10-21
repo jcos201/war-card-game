@@ -17,9 +17,9 @@ const $dynBG = $('.dynamicBG');
 const $headr = $('#hd');
 const $mstr = $('#mstr');
 const $cpuHand = $('#cpuHand');
-const $cpuPile = $('#cpuPile');
+const $cpu = $('#cpu');
 const $main = $('#main');
-const $p1Pile = $('#p1Pile');
+const $p1 = $('#p1');
 const $p1Hand = $('#p1Hand');
 const $actvClass = $('.active');
 const $buttons = $('button');
@@ -27,7 +27,12 @@ const $btns = $('#btns');
 const $trn = $('#trn');
 const $restart = $('#restart');
 const $exit = $('#quit');
-const $avatarImg = $('.avatar')
+const $avatarImg = $('.avatar');
+const $p1War = $('.p1War');
+const $cpuWar = $('.cpuWar');
+const $warModal = $('#warModal');
+const $p1Win = $('#p1Win');
+const $cpuWin = $('#cpuWin');
 
 // Event Listeners
 $form.on('submit', handleStartGame);
@@ -44,10 +49,15 @@ function init() {
         "grid-column": "span 5",
         "grid-row": "span 3"
     });
-    $mstr.prepend('<img src="./img/jigsaw-first-look.jpg" alt="jigsaw">');
-    $headr.fadeOut(0).fadeIn(5000);
-    $form.fadeOut(0).fadeIn(5000);
-    $btns.fadeOut(0)
+    //$mstr.prepend('<img src="./img/jigsaw-first-look.jpg" alt="jigsaw">');
+    $mstr.append(`
+    <video width="700" height="300" autoplay>
+    <source src="./img/intro.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>`)
+    $headr.fadeOut(0).delay(7700).fadeIn(7000);
+    $form.fadeOut(0).delay(7700).fadeIn(7000);
+    $btns.fadeOut(0);
 };
 
 function handleStartGame(event) {
@@ -58,8 +68,9 @@ function handleStartGame(event) {
     if (!userName) {
         return;
     }
-    $p1Pile.html(`<img src="./img/p1_avatar.png" alt="player1 avatar" height="65px" class="avatar">  ${userName}`);
-    $cpuPile.html(`<img src="./img/JIGSAW.png" alt="Jigsaw Avatar" height="65px" class="avatar"> JIGSAW`);
+    $p1.html(`<img src="./img/p1_avatar.png" alt="player1 avatar" height="65px" class="avatar">  ${userName}`);
+    $cpu.html(`<img src="./img/JIGSAW.png" alt="Jigsaw Avatar" height="65px" class="avatar"> JIGSAW`);
+
     $btns.fadeIn(0);
     $mstr.css({
         "grid-column": "span 1",
@@ -72,14 +83,8 @@ function handleStartGame(event) {
         "margin": "10px 80px"
     });
 
-
-
-    /*$p1Hand.html(`
-    <article id="innerArticle">test</article>
-    <article id="innerArticle">test</article>
-    <article id="innerArticle">test</article>`);*/
-    $p1Pile.addClass('p1Pile');
-    $cpuPile.addClass('cpuPile');
+    $p1.addClass('p1');
+    $cpu.addClass('cpu');
     $dynBG.css('background-color', 'green');
     $form.css('display', 'none');
 
@@ -95,7 +100,7 @@ function handleStartGame(event) {
             } else {
                 cpuCards.push(cardArray[i]);
             }
-            //console.log(typeof userCards);
+
             i += 1;
         } while (i < cardArray.length)
 
@@ -115,28 +120,24 @@ function updateCards() {
 }
 
 function takeTurn() {
-    console.log('Take turn button was selected');
-    // cpuTurn = 
-    if (cpuCards.length === 0) {
-        cpuCards = cpuPile;
-        cpuPile = [];
-    }
-    if (p1Cards.length === 0) {
-        p1Cards = p1Pile;
-        p1Pile = [];
-    }
 
-    updateCards();
-    getCards();
+    if (!checkWinner()) {
 
-    $main.html(`
+        updateCards();
+        getCards();
+
+        $main.html(`
     <article id="p1Card"><img class="cardIMG" src=${p1Turn.images.png} alt="Player 1 Card"></article>
     <article id="cpuCard"><img class="cardIMG" src=${cpuTurn.images.png} alt="CPU Card"></article>`);
-    $main.css({
-        'justify-content': 'space-around'
-    });
+        $main.css({
+            'justify-content': 'space-around'
+        });
 
-    compareCards();
+        compareCards();
+        checkWinner();
+    } else {
+        return;
+    }
 }
 
 function getCards() {
@@ -147,27 +148,39 @@ function getCards() {
 function compareCards() {
     let p1 = parseInt(valueArray.indexOf(p1Turn.value));
     let cpu = parseInt(valueArray.indexOf(cpuTurn.value));
-    console.log(`player one ${valueArray.indexOf(p1Turn.value)}`);
     if (p1 === cpu) {
-        console.log("it's a tie");
         declareWar();
     } else if (p1 < cpu) {
-        cpuPile.push(cpuTurn, p1Turn);
-        console.log("cpu wins");
+        console.log(`CPU Wins Cards: ${cpuTurn.code} and ${p1Turn.code}`);
+        cpuCards.unshift(cpuTurn, p1Turn);
     } else {
-        console.log("player 1 wins");
-        p1Pile.push(cpuTurn, p1Turn);
+        console.log(`Player 1 Wins Cards: ${cpuTurn.code} and ${p1Turn.code}`);
+        p1Cards.unshift(cpuTurn, p1Turn);
     }
 }
 
 function declareWar() {
-    console.log(`p1 deck: ${p1Cards[0].code}`);
-    console.log(`cpu deck: ${cpuCards[0].code}`);
+    $warModal.modal();
     warChest.push(cpuTurn, p1Turn, p1Cards.pop(), cpuCards.pop());
-    getCards()
+    getCards();
+    $cpuWar.html(`
+    <div id="cpuWarCard"><img class="cardIMG" src=${cpuTurn.images.png} alt="CPU War Card"></div>
+    <div class="card"><div class="front" style="visibility:hidden;"></div></div>`);
+    
+    $p1War.htnl(`
+    <div id="p1WarCard"><img class="cardIMG" src=${p1Turn.images.png} alt="P1 War Card"></div></div>
+    <div class="card"><div class="front" style="visibility:hidden;"></div></div>`);
+
 }
 
 function checkWinner() {
+    if (cpuCards.length === 0) {
+        console.log(`${userName} wins`);
+        return true;
+    } else if (p1Cards.length === 0) {
+        console.log('JIGSAW Wins');
+        return true;
+    }
     //TODO write function checking winner and alerting user if they won/lost
 }
 
