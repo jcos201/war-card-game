@@ -17,11 +17,11 @@ War is a card game I used to play as a kid.  When given the task of creating my 
 
 ## Screenshots
 ### This is the gameboard at the start of the game
-![Start of Game](./img/start_screenshot.jpeg) 
+![Start of Game](./img/gameStartScreenshot_v2.jpeg) 
  
 
 ### This is a screenshot of a tie with modal showing
-![War Screenshot](./img/war_screenshot.jpeg) 
+![War Screenshot](./img/warScreenShot_v2.jpeg) 
  
 
 ## Technologies Used
