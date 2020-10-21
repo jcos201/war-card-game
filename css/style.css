@@ -1,3 +1,8 @@
+:root {
+    --cpuMainColor: red;
+    --p1MainColor: #337abd;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -69,14 +74,14 @@
     #cpuCard {
         border: dotted;
         padding: 10px;
-        border-color: red;
+        border-color: var(--cpuMainColor);
         height: 50%;
     }
 
     #p1Card {
         border: dotted;
         padding: 10px;
-        border-color: blue;
+        border-color: var(--p1MainColor);
         height: 50%;
     }
 
@@ -86,6 +91,20 @@
    ABOVE HERE IS THE CSS FOR SMALL SCREENS
    ----------- */
 
+
+input[type=text] {
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.modal {
+    justify-content: center;
+    align-content: center;
+}
+
+
+
 .modal a {
     color: red;
     font-weight: 700;
@@ -93,12 +112,6 @@
     transition-duration: .2s;
     text-decoration: none;
     border-bottom: 2px solid transparent;
-}
-
-input[type=text] {
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
 }
 
 .modal p {
@@ -137,7 +150,7 @@ input[type=text] {
 
 .cardSmall1st {
     background-image: url("../img/cardback.gif");
-    border-color:white;
+    border-color: white;
     border-width: 1px;
     border-style: solid;
     border-radius: 1px;
@@ -200,7 +213,7 @@ DESKTOP / LAPTOP MONITORS
     body {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 50px 1fr 1fr 1fr 20px;
+        grid-template-rows: 50px 1fr 1fr 1fr 50px;
         grid-template-areas:
             "hdr"
             "aside1"
@@ -215,6 +228,7 @@ DESKTOP / LAPTOP MONITORS
             "footer"
         ;
         min-height: 100vh;
+        max-height: 100vh;
         margin: 0;
         font-family: helvetica;
     }
@@ -238,7 +252,6 @@ DESKTOP / LAPTOP MONITORS
 
     footer {
         grid-column: span 5;
-        height: 65px;
         width: 100%;
     }
 
@@ -261,21 +274,21 @@ DESKTOP / LAPTOP MONITORS
     }
 
     .active {
-        margin: 5px 20px;
+        margin: 5px 200px;
     }
 
     .p1 {
         border: solid;
         margin: 40px 30px;
         border-radius: 50px 15px 50px 30px;
-        border-color: blue;
+        border-color: var(--p1MainColor);
     }
 
     .cpu {
         border: solid;
         margin: 40px 30px;
         border-radius: 50px 30px 50px 15px;
-        border-color: red;
+        border-color: var(--cpuMainColor);
     }
 
     .avatar {
@@ -307,18 +320,18 @@ DESKTOP / LAPTOP MONITORS
         grid-column: span 2;
     }
 
-    #cpuCard {
+    #cpuCard,
+    #p1Card {
         border: dotted;
-        padding: 10px;
-        border-color: red;
+        padding: 5px 10px;
+    }
 
+    #cpuCard {
+        border-color: var(--cpuMainColor);
     }
 
     #p1Card {
-        border: dotted;
-        padding: 10px;
-        border-color: blue;
-
+        border-color: var(--p1MainColor);
     }
 
 
