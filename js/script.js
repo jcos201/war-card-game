@@ -47,6 +47,8 @@ const $noAction = $('.exit');
 const $warModal = $('#warModal');
 const $shuffleModal = $('#reshuffleModal');
 const $quitModal = $('#quitModal');
+const $introModal = $('#introModal');
+const $start = $('#startIntro');
 const $a = $('a');
 const $modals = $('.modal');
 
@@ -59,6 +61,7 @@ $confirmShuffle.on('click', restart);
 $confirmExit.on('click', exit);
 $noAction.on('click', closeModal);
 $a.on('click', declareWar);
+$start.on('click', startVideo);
 
 // Disable default modal close
 
@@ -77,10 +80,18 @@ function init() {
     <source src="./img/intro.mp4" type="video/mp4">
     Your browser does not support the video tag.
     </video>`);
-    $('#introVid').trigger('play');
-    $headr.fadeOut(0).delay(7700).fadeIn(7000);
-    $form.fadeOut(0).delay(7700).fadeIn(7000);
+    
+    $headr.fadeOut(0);
+    $form.fadeOut(0);
     $btns.fadeOut(0);
+
+    $introModal.modal({
+        fadeDuration: 1000,
+        fadeDelay: 0.50,
+        escapeClose: false,
+        clickClose: false,
+        showClose: false
+    });
 };
 
 function handleStartGame(event) {
@@ -252,6 +263,14 @@ function shuffleModal() {
 
 function quitModal() {
     $quitModal.modal();
+}
+
+function startVideo() {
+    closeModal();
+    $('#introVid').trigger('play');
+    $headr.delay(8000).fadeIn(7000);
+    $form.delay(8000).fadeIn(7000);
+    
 }
 
 function restart() {
