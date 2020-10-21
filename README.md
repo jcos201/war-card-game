@@ -8,16 +8,16 @@ War is a card game I used to play as a kid.  When given the task of creating my 
 ## Rules
 ![Rules](./img/rules.jpeg)
 [Bicycle Cards How To Play War](https://bicyclecards.com/how-to-play/war/)
-
+`
 ## Wireframe
-!(Wireframe) (https://lucid.app/invitations/accept/4068607a-05c1-4f3e-adfd-9a76b811cd2f)
+![Wireframe](https://lucid.app/invitations/accept/4068607a-05c1-4f3e-adfd-9a76b811cd2f)
 ###This was my original wireframe, as you can see from the screenshots below there has been some formatting changes since the original concept.  During testing it seemed that a better user experience could be attained by changing the layout slightly.
 
 ## Screenshots
-![Start of Game](./img/start_screenshot.jpg)/
+![Start of Game](./img/start_screenshot.jpeg)/
 ### This is the gameboard at the start of the game
 /
-![War Screenshot](./img/war_screenshot.jpg)/
+![War Screenshot](./img/war_screenshot.jpeg)/
 ### This is a screenshot of a tie with modal showing
 
 ## Technologies Used
